@@ -7,5 +7,6 @@ const userRouter = Router();
 
 userRouter.post('/signup/doctor', validateSchema(doctorSchema), userController.createDoctor);
 userRouter.post('/signup/patient', validateSchema(patientSchema), userController.createPatient);
+userRouter.post('/signin', userController.signin)
 
 export default userRouter;

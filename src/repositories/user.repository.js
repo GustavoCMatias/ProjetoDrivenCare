@@ -1,9 +1,14 @@
 import connectionDb from "../config/database.js";
 
-
+async function addSession({token, userId}){
+    await connectionDb.query(`
+    INSERT INTO sessions (user_id, token) 
+    values ($1, $2)
+    `, [userId, token])
+}
 async function findByEmail(email) {
     return await connectionDb.query(`
-    SELECT * 
+    SELECT id, password 
     FROM users
     WHERE email = $1
     `, [email]);
@@ -33,5 +38,6 @@ async function createPatient({name, email, password, specialty}){
 export default {
     findByEmail,
     createDoctor,
-    createPatient
+    createPatient,
+    addSession
 }
