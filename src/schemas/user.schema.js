@@ -1,4 +1,7 @@
-import Joi from "joi";
+import joi from "joi";
+import JoiDate from '@joi/date';
+
+const Joi = joi.extend(JoiDate);
 
 export const doctorSchema = Joi.object({
     email: Joi.string().email().required(),
@@ -12,3 +15,11 @@ export const patientSchema = Joi.object({
     password: Joi.string().required(),
     name: Joi.string().min(2).required()
 })
+
+
+const unique = Joi.object().keys({
+    hour: Joi.date().format('YYYY-MM-DD HH:mm:ss').required(),
+    duration: Joi.number().integer().min(0).required()
+  });
+
+export const avaliabilySchema = Joi.array().items(unique);

@@ -27,7 +27,7 @@ async function createDoctor({name, email, password, specialty}){
     `, [specialty, rows[0].id])
 }
 
-async function createPatient({name, email, password, specialty}){
+async function createPatient({name, email, password}){
     const {rows} = await connectionDb.query(`
     INSERT INTO users (name, email, password, type) 
     values ($1, $2, $3, 'patient')
@@ -35,9 +35,17 @@ async function createPatient({name, email, password, specialty}){
     `, [name, email, password])
 }
 
+async function createAvaliability({avaliabilities, placeHolder}){
+    await connectionDb.query(`
+    INSERT INTO avaliabilities (doctor_id, time, duration)
+    values (${placeHolder})
+    `, avaliabilities)
+}
+
 export default {
     findByEmail,
     createDoctor,
     createPatient,
-    addSession
+    addSession,
+    createAvaliability
 }

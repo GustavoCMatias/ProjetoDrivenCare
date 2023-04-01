@@ -5,7 +5,8 @@ export function validateSchema(schema){
         const {error} = schema.validate(req.body, {abortEarly: false});
         
         if(error){
-            throw errors.conflictError();
+            const err = error.details.map((detail) => detail.message);
+            throw errors.conflictError(err);
         }
 
         next();
