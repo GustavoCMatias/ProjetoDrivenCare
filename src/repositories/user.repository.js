@@ -44,7 +44,8 @@ async function createAvaliability({avaliabilities, placeHolder}){
 
 async function getDoctors({localization, specialty, name}){
     return await connectionDb.query(`
-    SELECT u.name, di.specialty, di.localization, 
+    SELECT u.id, u.name, di.specialty, di.localization, 
+        array_agg(a.id) AS avaliabilities_id,
         array_agg(a.time) AS time, 
         array_agg(a.duration) AS duration, 
         array_agg(a.booked) AS booked
@@ -53,7 +54,8 @@ async function getDoctors({localization, specialty, name}){
         ON di.user_id = u.id
     LEFT JOIN avaliabilities a 
         ON a.doctor_id = u.id
-    WHERE ($1::text IS NULL OR u.name = $1) AND ($2::text IS NULL OR di.specialty = $2) AND ($3::text IS NULL OR di.localization = $3)    GROUP BY u.name, di.specialty, di.localization;
+    WHERE ($1::text IS NULL OR u.name = $1) AND ($2::text IS NULL OR di.specialty = $2) AND ($3::text IS NULL OR di.localization = $3)    
+    GROUP BY u.name, di.specialty, di.localization, u.id;
     `, [name, specialty, localization])
 }
 

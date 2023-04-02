@@ -53,11 +53,13 @@ async function getDoctors({ localization, specialty, name }) {
     const newRows = []
     rows.forEach(e => {
         newRows.push({
+            id: e.id,
             name: e.name,
             specialty: e.specialty,
             localization: e.localization,
             schedule: e.time.map((item, i) => {
                 return {
+                    id: e.avaliabilities_id[i],
                     time: item,
                     duration: e.duration[i],
                     booked: e.booked[i]
