@@ -10,6 +10,7 @@ const userRouter = Router();
 userRouter.post('/signup/doctor', validateSchema(doctorSchema), userController.createDoctor);
 userRouter.post('/signup/patient', validateSchema(patientSchema), userController.createPatient);
 userRouter.post('/signin', userController.signin);
-userRouter.post('/schedule', validateSchema(avaliabilySchema), validateToken, checkDoctor, userController.createAvaliability, (req, res) => res.sendStatus(200));
+userRouter.post('/schedule', validateSchema(avaliabilySchema), validateToken, checkDoctor, userController.createAvaliability);
+userRouter.get('/doctors', validateToken, userController.getDoctors)
 
 export default userRouter;

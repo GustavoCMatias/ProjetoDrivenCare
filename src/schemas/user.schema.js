@@ -7,7 +7,8 @@ export const doctorSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
     specialty: Joi.string().min(5).required(),
-    name: Joi.string().min(2).required()
+    name: Joi.string().min(2).required(),
+    localization: Joi.string().min(8).required()
 })
 
 export const patientSchema = Joi.object({
