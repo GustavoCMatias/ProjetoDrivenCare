@@ -41,11 +41,19 @@ function invalidCredentialsError() {
   };
 }
 
+function badRequest(){
+  return {
+    name: "BadRequest",
+    message: "Doctor and patient are the same person"
+  }
+}
+
 export default {
   conflictError,
   duplicatedEmailError,
   unauthorizedError,
   notFoundError,
   invalidCredentialsError,
-  acessDeniedError
+  acessDeniedError,
+  badRequest
 };

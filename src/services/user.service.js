@@ -42,7 +42,6 @@ async function createAvaliability({ data, user }) {
         avaliabilities.push(user.id, item.hour, item.duration);
         placeHolderList.push(`$${3 * i + 1}, $${3 * i + 2}, $${3 * i + 3}`);
     })
-    console.log(avaliabilities)
     const placeHolder = placeHolderList.join('), (');
 
     await userRepository.createAvaliability({ avaliabilities, placeHolder });
