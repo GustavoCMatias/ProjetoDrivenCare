@@ -30,8 +30,20 @@ async function cancel({user, appointmentId, reopen_schedule}){
     if(reopen_schedule) appointmentRepository.reopen({appointmentId})
 }
 
+async function getDoctor({user}){
+    const {rows: appointments} = await appointmentRepository.getDoctor(user);
+    return appointments
+}
+
+async function getPatient({user}){
+    const {rows: appointments} = await appointmentRepository.getPatient(user);
+    return appointments
+}
+
 export default {
     postAppointment,
     confirm,
-    cancel
+    cancel,
+    getDoctor,
+    getPatient
 }

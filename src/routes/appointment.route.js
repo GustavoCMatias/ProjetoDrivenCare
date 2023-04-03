@@ -12,6 +12,7 @@ const appointmentRouter = Router();
 appointmentRouter.post('/', validateToken, validateSchema(AppointmentSchema), appointmentController.postAppointment)
 appointmentRouter.post('/confirm', validateToken, validateSchema(ConfirmSchema), checkDoctor, appointmentController.confirm)
 appointmentRouter.post('/cancel', validateToken, validateSchema(CancelSchema), checkDoctor, appointmentController.cancel)
-
+appointmentRouter.get('/list/doctor', validateToken, checkDoctor, appointmentController.getDoctorAppointments)
+appointmentRouter.get('/list/patient', validateToken, appointmentController.getPatientAppointments)
 
 export default appointmentRouter;

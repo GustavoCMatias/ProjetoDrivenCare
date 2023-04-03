@@ -58,6 +58,38 @@ async function reopen({appointmentId}) {
     `, [appointmentId])
 }
 
+async function getDoctor(user){
+    return await connectionDb.query(`
+    SELECT a.id, av.time, av.duration, patients.name as patient_name, doctors.name AS doctor_name, di.specialty, a.confirmed, a.canceled
+    FROM appointments a
+        JOIN avaliabilities av
+            ON a.avaliability_id = av.id
+        LEFT JOIN users doctors 
+            ON doctors.id = a.doctor_id
+        LEFT JOIN users patients
+            ON patients.id = a.patient_id
+        LEFT JOIN doctor_infos di
+            ON doctors.id = di.user_id
+    WHERE a.doctor_id = $1
+    `, [user])
+}
+
+async function getPatient(user){
+    return await connectionDb.query(`
+    SELECT a.id, av.time, av.duration, patients.name as patient_name, doctors.name AS doctor_name, di.specialty, a.confirmed, a.canceled
+    FROM appointments a
+        JOIN avaliabilities av
+            ON a.avaliability_id = av.id
+        LEFT JOIN users doctors 
+            ON doctors.id = a.doctor_id
+        LEFT JOIN users patients
+            ON patients.id = a.patient_id
+        LEFT JOIN doctor_infos di
+            ON doctors.id = di.user_id
+    WHERE a.patient_id = $1
+    `, [user])
+}
+
 export default {
     postAppointment,
     blockAvaliability,
@@ -65,5 +97,7 @@ export default {
     cancel,
     checkExistence,
     reopen,
-    blockAvaliabilityFromAppointment
+    blockAvaliabilityFromAppointment,
+    getDoctor,
+    getPatient
 }

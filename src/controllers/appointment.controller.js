@@ -35,8 +35,33 @@ async function cancel(req, res, next) {
     }
 }
 
+async function getDoctorAppointments(req, res, next){
+
+    const { user } = res.locals;
+
+    try {
+        const appointments = await appointmentService.getDoctor({user:user.id})
+        return res.status(200).send({appointments});
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function getPatientAppointments(req, res, next){
+    const { user } = res.locals;
+
+    try {
+        const appointments = await appointmentService.getPatient({user:user.id})
+        return res.status(200).send({appointments});
+    } catch (err) {
+        next(err);
+    }
+}
+
 export default {
     postAppointment,
     cancel,
-    confirm
+    confirm,
+    getDoctorAppointments,
+    getPatientAppointments
 }
