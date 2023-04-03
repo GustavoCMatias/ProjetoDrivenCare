@@ -5,3 +5,12 @@ export const AppointmentSchema = Joi.object({
     avaliability_id: Joi.number().integer().min(0).required()
 })
 
+export const ConfirmSchema = Joi.object({
+    appointmentId: Joi.number().integer().min(0).required()
+})
+
+export const CancelSchema = Joi.object({
+    appointmentId: Joi.number().integer().min(0).required(),
+    reopen_schedule: Joi.boolean().required()
+})
+
